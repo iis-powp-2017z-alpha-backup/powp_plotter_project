@@ -31,7 +31,7 @@ public class TestPlotSoftPatterns
 	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
 		
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	
-		context.addTest("Figure Joe 2", selectTestFigureOptionListener);
+		//context.addTest("Figure Joe 2", selectTestFigureOptionListener);
 	}
 
 	/**
