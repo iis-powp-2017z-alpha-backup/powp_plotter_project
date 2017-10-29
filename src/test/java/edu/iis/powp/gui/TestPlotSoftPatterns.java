@@ -42,8 +42,9 @@ public class TestPlotSoftPatterns
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
+	
 		
-		IPlotter plotter = new MyAdapter();
+		IPlotter plotter = (IPlotter) ApplicationWithDrawer.getDrawPanelController();
 		context.addDriver("Buggy Simulator", plotter);
 
 		context.updateDriverInfo();
@@ -54,12 +55,12 @@ public class TestPlotSoftPatterns
 	 * 
 	 * @param context Application context.
 	 */
-	private static void setupDefaultDrawerVisibilityManagement(Context context) {
-		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
-        context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
-        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
-        defaultDrawerWindow.setVisible(true);
-	}
+//	private static void setupDefaultDrawerVisibilityManagement(Context context) {
+//		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
+//        context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
+//        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
+//        defaultDrawerWindow.setVisible(true);
+//	}
 	
 	/**
 	 * Setup menu for adjusting logging settings.
@@ -89,7 +90,7 @@ public class TestPlotSoftPatterns
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
-                setupDefaultDrawerVisibilityManagement(context);
+                //setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
             	setupPresetTests(context);
