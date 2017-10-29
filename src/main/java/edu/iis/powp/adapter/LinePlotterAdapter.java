@@ -32,6 +32,8 @@ public class LinePlotterAdapter implements IPlotter {
 	public void drawTo(int x, int y) {
 		line.setStartCoordinates(this.startX, this.startY);
 		line.setEndCoordinates(x, y);
+		this.startX = x;
+		this.startY = y;
 		ApplicationWithDrawer.getDrawPanelController().drawLine(line);
 	}
 

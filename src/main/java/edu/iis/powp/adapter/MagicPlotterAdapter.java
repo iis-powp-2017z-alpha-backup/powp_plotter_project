@@ -26,6 +26,8 @@ public class MagicPlotterAdapter implements IPlotter {
 		ILine line = LineFactory.getBasicLine();
 		line.setStartCoordinates(this.startX, this.startY);
 		line.setEndCoordinates(x, y);
+		this.startX = x;
+		this.startY = y;
 
 		ApplicationWithDrawer.getDrawPanelController().drawLine(line);
 	}
