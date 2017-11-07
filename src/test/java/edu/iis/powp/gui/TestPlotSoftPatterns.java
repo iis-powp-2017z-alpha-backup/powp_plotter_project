@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.client.plottermagic.preset.FiguresJoe;
 import edu.iis.powp.adapter.MyAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
@@ -35,7 +36,7 @@ public class TestPlotSoftPatterns
 
 	/**
 	 * Setup driver manager, and set default IPlotter for application.
-	 * 
+	 *
 	 * @param context Application context.
 	 */
 	private static void setupDrivers(Context context) {
@@ -44,6 +45,7 @@ public class TestPlotSoftPatterns
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 		
 		IPlotter plotter = new MyAdapter();
+		FiguresJoe.figureScript1(plotter);
 		context.addDriver("Buggy Simulator", plotter);
 
 		context.updateDriverInfo();
@@ -82,15 +84,13 @@ public class TestPlotSoftPatterns
      */
     public static void main(String[] args)
     {
+
         EventQueue.invokeLater(new Runnable()
         {
             public void run()
             {
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
-                
-                setupDefaultDrawerVisibilityManagement(context);
-                
             	setupDrivers(context);
             	setupPresetTests(context);
             	setupLogger(context);
