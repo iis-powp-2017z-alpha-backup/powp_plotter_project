@@ -14,7 +14,7 @@ public class SelectClearPanelOptionListener implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        DrawPanelController controller = Application.getComponent(MyAdapter.class);
+        DrawPanelController controller = Application.getComponent(DrawPanelController.class);
         controller.clearPanel();
     }
 }

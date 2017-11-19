@@ -44,9 +44,9 @@ public class ApplicationWithDrawer {
 	private static void setupDrawerPlugin(Context context) {    
 		SelectClearPanelOptionListener selectClearPanelOptionListener = new SelectClearPanelOptionListener();
 	
-		Application.addComponent(MyAdapter.class);
-		context.addComponentMenu(MyAdapter.class, "Draw Panel", 0);
-		context.addComponentMenuElement(MyAdapter.class, "Clear Panel", selectClearPanelOptionListener);
+		Application.addComponent(DrawPanelController.class);
+		context.addComponentMenu(DrawPanelController.class, "Draw Panel", 0);
+		context.addComponentMenuElement(DrawPanelController.class, "Clear Panel", selectClearPanelOptionListener);
 		
         getDrawPanelController().initialize(context.getFreePanel());
 	}
@@ -57,7 +57,7 @@ public class ApplicationWithDrawer {
      * @return drawPanelController.
      */
 	public static DrawPanelController getDrawPanelController() {
-		return Application.getComponent(MyAdapter.class);
+		return Application.getComponent(DrawPanelController.class);
 	}
 
 }
