@@ -18,7 +18,7 @@ public class IPlotterTest
      */
     public static void main(String[] args)
     {
-        FiguresJoe.figureScript1(plotter);
+        FiguresJoe.figureScript2(plotter);
     }
     
     private static class TestPlotter implements IPlotter
@@ -27,13 +27,13 @@ public class IPlotterTest
         @Override
         public void drawTo(int x, int y)
         {
-            System.out.println("Plotter drawTo action..."); 
+            System.out.println("Plotter drawTo action..."+x+" "+y); 
         }
 
         @Override
         public void setPosition(int x, int y)
         {
-            System.out.println("Plotter setPosition action..."); 
+            System.out.println("Plotter setPosition action..."+x+" "+y); 
         }
     };
 }
