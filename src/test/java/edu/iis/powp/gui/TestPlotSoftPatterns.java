@@ -18,57 +18,76 @@ import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iss.powp.command.FigureFactory;
 import edu.kis.powp.drawer.shape.LineFactory;
 
-
-public class TestPlotSoftPatterns
-{
+public class TestPlotSoftPatterns {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-		
-    /**
+
+	/**
 	 * Setup test concerning preset figures in context.
 	 * 
-	 * @param context Application context.
+	 * @param context
+	 *            Application context.
 	 */
 	private static void setupPresetTests(Context context) {
-	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-		
+		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
+
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
+
 		context.addTest("Figure Joe 2", new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
-				
+
 			}
 		});
+
 		context.addTest("Figure Jane", new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FiguresJane.figureScript(new AbstractPlotterAdapter(0, 0, 
+				FiguresJane.figureScript(new AbstractPlotterAdapter(0, 0,
 						Application.getComponent(DriverManager.class).getCurrentPlotter()));
-				
+
 			}
-		} );
+		});
+
+		context.addTest("Rectangle", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FigureFactory.drawRectangle(-100, -100, 300, 100)
+						.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+			}
+		});
+
+		context.addTest("Trapeze", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FigureFactory.drawTrapeze(-100, 0, 100, 300, 150)
+						.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+			}
+		});
 	}
 
 	/**
 	 * Setup driver manager, and set default IPlotter for application.
 	 * 
-	 * @param context Application context.
+	 * @param context
+	 *            Application context.
 	 */
 	private static void setupDrivers(Context context) {
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
-	
+
 		IPlotter lineSPlotter = new LinePlotterAdapter(LineFactory.getSpecialLine());
 		context.addDriver("Line Special Plotter", lineSPlotter);
-		
+
 		IPlotter lineDPlotter = new LinePlotterAdapter(LineFactory.getDottedLine());
 		context.addDriver("Line Dotted Plotter", lineDPlotter);
-		
+
 		IPlotter plotter = new DrawPlotterAdapter();
 		context.addDriver("Buggy Simulator", plotter);
 
@@ -78,19 +97,23 @@ public class TestPlotSoftPatterns
 	/**
 	 * Auxiliary routines to enable using Buggy Simulator.
 	 * 
-	 * @param context Application context.
+	 * @param context
+	 *            Application context.
 	 */
-//	private static void setupDefaultDrawerVisibilityManagement(Context context) {
-//		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
-//        context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
-//        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
-//        defaultDrawerWindow.setVisible(true);
-//	}
-	
+	// private static void setupDefaultDrawerVisibilityManagement(Context context) {
+	// DefaultDrawerFrame defaultDrawerWindow =
+	// DefaultDrawerFrame.getDefaultDrawerFrame();
+	// context.addComponentMenuElementWithCheckBox(DrawPanelController.class,
+	// "Default Drawer Visibility",
+	// new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
+	// defaultDrawerWindow.setVisible(true);
+	// }
+
 	/**
 	 * Setup menu for adjusting logging settings.
 	 * 
-	 * @param context Application context.
+	 * @param context
+	 *            Application context.
 	 */
 	private static void setupLogger(Context context) {
 		Application.addComponent(Logger.class);
@@ -98,31 +121,29 @@ public class TestPlotSoftPatterns
 		context.addComponentMenuElement(Logger.class, "Clear log", (ActionEvent e) -> context.flushLoggerOutput());
 		context.addComponentMenuElement(Logger.class, "Fine level", (ActionEvent e) -> LOGGER.setLevel(Level.FINE));
 		context.addComponentMenuElement(Logger.class, "Info level", (ActionEvent e) -> LOGGER.setLevel(Level.INFO));
-		context.addComponentMenuElement(Logger.class, "Warning level", (ActionEvent e) -> LOGGER.setLevel(Level.WARNING));
+		context.addComponentMenuElement(Logger.class, "Warning level",
+				(ActionEvent e) -> LOGGER.setLevel(Level.WARNING));
 		context.addComponentMenuElement(Logger.class, "Severe level", (ActionEvent e) -> LOGGER.setLevel(Level.SEVERE));
 		context.addComponentMenuElement(Logger.class, "OFF logging", (ActionEvent e) -> LOGGER.setLevel(Level.OFF));
 	}
-		
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args)
-    {
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                ApplicationWithDrawer.configureApplication();
-                Context context = Application.getComponent(Context.class);
-                
-                //setupDefaultDrawerVisibilityManagement(context);
-                
-            	setupDrivers(context);
-            	setupPresetTests(context);
-            	setupLogger(context);
-            }
 
-        });
-    }
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				ApplicationWithDrawer.configureApplication();
+				Context context = Application.getComponent(Context.class);
+
+				// setupDefaultDrawerVisibilityManagement(context);
+
+				setupDrivers(context);
+				setupPresetTests(context);
+				setupLogger(context);
+			}
+
+		});
+	}
 
 }
