@@ -24,6 +24,4 @@ public class AbstractPlotterAdapter extends AbstractPlotter implements IPlotter 
 		super.setPosition(arg0, arg1);
 	}
 
-	
-
 }

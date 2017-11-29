@@ -2,15 +2,11 @@ package edu.iis.powp.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
-import edu.iis.client.plottermagic.preset.FiguresJane;
-import edu.iis.client.plottermagic.preset.FiguresJoe;
-import edu.iis.powp.adapter.AbstractPlotterAdapter;
 import edu.iis.powp.adapter.DrawPlotterAdapter;
 import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
@@ -18,7 +14,6 @@ import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
-import edu.iss.powp.command.FigureFactory;
 import edu.kis.powp.drawer.shape.LineFactory;
 
 public class TestPlotSoftPatterns {
@@ -31,44 +26,17 @@ public class TestPlotSoftPatterns {
 	 *            Application context.
 	 */
 	private static void setupPresetTests(Context context) {
-		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
 
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
-
-		context.addTest("Figure Joe 2", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
-
-			}
-		});
-
-		context.addTest("Figure Jane", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FiguresJane.figureScript(new AbstractPlotterAdapter(0, 0,
-						Application.getComponent(DriverManager.class).getCurrentPlotter()));
-
-			}
-		});
-
-		context.addTest("Rectangle", new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FigureFactory.drawRectangle(-100, -100, 300, 100)
-						.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
-			}
-		});
-
-		context.addTest("Trapeze", new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FigureFactory.drawTrapeze(-100, 0, 100, 300, 150)
-						.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
-			}
-		});
+		context.addTest(SelectTestFigureOptionListener.FIGURE_JOE_1, 
+				new SelectTestFigureOptionListener(SelectTestFigureOptionListener.FIGURE_JOE_1));
+		context.addTest(SelectTestFigureOptionListener.FIGURE_JOE_2, 
+				new SelectTestFigureOptionListener(SelectTestFigureOptionListener.FIGURE_JOE_2));
+		context.addTest(SelectTestFigureOptionListener.FIGURE_JANE, 
+				new SelectTestFigureOptionListener(SelectTestFigureOptionListener.FIGURE_JANE));
+		context.addTest(SelectTestFigureOptionListener.RECTANGLE, 
+				new SelectTestFigureOptionListener(SelectTestFigureOptionListener.RECTANGLE));
+		context.addTest(SelectTestFigureOptionListener.TRAPEZE, 
+				new SelectTestFigureOptionListener(SelectTestFigureOptionListener.TRAPEZE));
 	}
 
 	/**
@@ -78,18 +46,19 @@ public class TestPlotSoftPatterns {
 	 *            Application context.
 	 */
 	private static void setupDrivers(Context context) {
-		IPlotter clientPlotter = new ClientPlotter();
-		context.addDriver("Client Plotter", clientPlotter);
-		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
-
-		IPlotter lineSPlotter = new LinePlotterAdapter(LineFactory.getSpecialLine());
-		context.addDriver("Line Special Plotter", lineSPlotter);
-
-		IPlotter lineDPlotter = new LinePlotterAdapter(LineFactory.getDottedLine());
-		context.addDriver("Line Dotted Plotter", lineDPlotter);
-
+		
 		IPlotter plotter = new DrawPlotterAdapter();
 		context.addDriver("Buggy Simulator", plotter);
+		Application.getComponent(DriverManager.class).setCurrentPlotter(plotter);
+
+		IPlotter lineSpecialPlotter = new LinePlotterAdapter(LineFactory.getSpecialLine());
+		context.addDriver("Line Special Plotter", lineSpecialPlotter);
+
+		IPlotter lineDottedPlotter = new LinePlotterAdapter(LineFactory.getDottedLine());
+		context.addDriver("Line Dotted Plotter", lineDottedPlotter);
+		
+		IPlotter clientPlotter = new ClientPlotter();
+		context.addDriver("Client Plotter", clientPlotter);
 
 		context.updateDriverInfo();
 	}
@@ -118,13 +87,18 @@ public class TestPlotSoftPatterns {
 	private static void setupLogger(Context context) {
 		Application.addComponent(Logger.class);
 		context.addComponentMenu(Logger.class, "Logger", 0);
-		context.addComponentMenuElement(Logger.class, "Clear log", (ActionEvent e) -> context.flushLoggerOutput());
-		context.addComponentMenuElement(Logger.class, "Fine level", (ActionEvent e) -> LOGGER.setLevel(Level.FINE));
-		context.addComponentMenuElement(Logger.class, "Info level", (ActionEvent e) -> LOGGER.setLevel(Level.INFO));
+		context.addComponentMenuElement(Logger.class, "Clear log", 
+				(ActionEvent e) -> context.flushLoggerOutput());
+		context.addComponentMenuElement(Logger.class, "Fine level", 
+				(ActionEvent e) -> LOGGER.setLevel(Level.FINE));
+		context.addComponentMenuElement(Logger.class, "Info level", 
+				(ActionEvent e) -> LOGGER.setLevel(Level.INFO));
 		context.addComponentMenuElement(Logger.class, "Warning level",
 				(ActionEvent e) -> LOGGER.setLevel(Level.WARNING));
-		context.addComponentMenuElement(Logger.class, "Severe level", (ActionEvent e) -> LOGGER.setLevel(Level.SEVERE));
-		context.addComponentMenuElement(Logger.class, "OFF logging", (ActionEvent e) -> LOGGER.setLevel(Level.OFF));
+		context.addComponentMenuElement(Logger.class, "Severe level", 
+				(ActionEvent e) -> LOGGER.setLevel(Level.SEVERE));
+		context.addComponentMenuElement(Logger.class, "OFF logging", 
+				(ActionEvent e) -> LOGGER.setLevel(Level.OFF));
 	}
 
 	/**

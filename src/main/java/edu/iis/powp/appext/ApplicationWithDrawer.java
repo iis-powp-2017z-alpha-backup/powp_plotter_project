@@ -1,6 +1,5 @@
 package edu.iis.powp.appext;
 
-import edu.iis.powp.adapter.*;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
