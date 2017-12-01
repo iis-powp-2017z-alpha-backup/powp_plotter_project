@@ -2,11 +2,14 @@ package edu.iis.powp.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.client.plottermagic.preset.FiguresJoe;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.adapter.MyAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
@@ -14,8 +17,13 @@ import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.factory.RectangleFactory;
+import edu.iis.powp.factory.SquareFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
+import edu.kis.powp.drawer.shape.LineFactory;
+import edu.kis.powp.drawer.shape.line.BasicLine;
+import edu.kis.powp.drawer.shape.line.SpecialLine;
 
 
 public class TestPlotSoftPatterns
@@ -30,7 +38,33 @@ public class TestPlotSoftPatterns
 	private static void setupPresetTests(Context context) {
 	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
 		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	
+		context.addTest("Figure Joe 2", new ActionListener()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		    }
+		});
+		context.addTest("Square", new ActionListener()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        SquareFactory square = new SquareFactory();
+		        square.draw().execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		    }
+		});
+		context.addTest("Rectangle", new ActionListener()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        RectangleFactory square = new RectangleFactory();
+		        square.draw().execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		    }
+		});
 	}
 
 	/**
@@ -42,9 +76,12 @@ public class TestPlotSoftPatterns
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
-		
+
 		IPlotter plotter = new MyAdapter();
-		context.addDriver("Buggy Simulator", plotter);
+		context.addDriver("MyAdapter", plotter);
+		
+		IPlotter plotterLine = new LinePlotterAdapter();
+		context.addDriver("Line Simulator", plotterLine);
 
 		context.updateDriverInfo();
 	}
@@ -54,12 +91,12 @@ public class TestPlotSoftPatterns
 	 * 
 	 * @param context Application context.
 	 */
-	private static void setupDefaultDrawerVisibilityManagement(Context context) {
+/*	private static void setupDefaultDrawerVisibilityManagement(Context context) {
 		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
         context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
         		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
         defaultDrawerWindow.setVisible(true);
-	}
+	}*/
 	
 	/**
 	 * Setup menu for adjusting logging settings.
@@ -89,7 +126,7 @@ public class TestPlotSoftPatterns
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
-                setupDefaultDrawerVisibilityManagement(context);
+                //setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
             	setupPresetTests(context);
