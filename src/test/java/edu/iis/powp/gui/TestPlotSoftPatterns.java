@@ -17,6 +17,8 @@ import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.factory.RectangleFactory;
+import edu.iis.powp.factory.SquareFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.LineFactory;
@@ -43,6 +45,24 @@ public class TestPlotSoftPatterns
 		    public void actionPerformed(ActionEvent e)
 		    {
 		        FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		    }
+		});
+		context.addTest("Square", new ActionListener()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        SquareFactory square = new SquareFactory();
+		        square.draw().execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		    }
+		});
+		context.addTest("Rectangle", new ActionListener()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        RectangleFactory square = new RectangleFactory();
+		        square.draw().execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
 		    }
 		});
 	}
