@@ -39,4 +39,11 @@ public class MyAdapter extends DrawPanelController implements IPlotter
     {
         return "@Q!$!@$!#@$(*#@&Q(%^*#@";
     }
+    
+    
+    public void clearPanel()
+    {
+    	System.out.println("Clearing panel!");
+        super.clearPanel();
+    }
 }

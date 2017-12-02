@@ -13,6 +13,18 @@ public class SelectTestFigureOptionListener implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        FiguresJoe.figureScript1(Application.getComponent(DriverManager.class).getCurrentPlotter());
+    	System.out.println(e.getActionCommand());
+    	switch (e.getActionCommand())
+    	{
+	    	case "Figure Joe 1":
+	    		FiguresJoe.figureScript1(Application.getComponent(DriverManager.class).getCurrentPlotter());
+	    		break;
+	    	case "Figure Joe 2":
+	    		FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
+	    		break;
+	    	default:
+	    		System.err.println("Test not found.");
+    	}
+        //
     }
 }

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.powp.adapter.MyAdapter;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
@@ -30,7 +31,8 @@ public class TestPlotSoftPatterns
 	private static void setupPresetTests(Context context) {
 	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
 		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
+		context.addTest("Figure Joe 2" , selectTestFigureOptionListener);
 	}
 
 	/**
@@ -45,6 +47,9 @@ public class TestPlotSoftPatterns
 		
 		IPlotter plotter = new MyAdapter();
 		context.addDriver("Buggy Simulator", plotter);
+		
+		IPlotter plotter2 = new LinePlotterAdapter();
+		context.addDriver("Line Plotter Simulator", plotter2);
 
 		context.updateDriverInfo();
 	}
