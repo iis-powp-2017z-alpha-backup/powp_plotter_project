@@ -7,15 +7,21 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
-import edu.iis.powp.adapter.MyAdapter;
+import edu.iis.powp.adapter.CommandDrawLineToPosition;
+import edu.iis.powp.adapter.CommandSetPosition;
+import edu.iis.powp.adapter.DrawClassAdapter;
+import edu.iis.powp.adapter.Factory;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.events.predefine.SelectTestFigureOptionListener2;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
+import edu.kis.powp.drawer.shape.LineFactory;
 
 
 public class TestPlotSoftPatterns
@@ -29,8 +35,9 @@ public class TestPlotSoftPatterns
 	 */
 	private static void setupPresetTests(Context context) {
 	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+	    SelectTestFigureOptionListener2 selectTestFigureOptionListener2 = new SelectTestFigureOptionListener2();
+		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	
+		context.addTest("Figure Joe 2", selectTestFigureOptionListener2);
 	}
 
 	/**
@@ -42,10 +49,17 @@ public class TestPlotSoftPatterns
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
+		IPlotter adapter = new LinePlotterAdapter(LineFactory.getBasicLine());
+		context.addDriver("Basic Simulator", adapter);
+		IPlotter adapter2 = new LinePlotterAdapter(LineFactory.getSpecialLine());
+		CommandSetPosition set = new CommandSetPosition(150,150);
+		CommandDrawLineToPosition setLine = new CommandDrawLineToPosition(100,100);
+		/*set.execute(adapter2);
+		setLine.execute(adapter2);*/
 		
-		IPlotter plotter = new MyAdapter();
-		context.addDriver("Buggy Simulator", plotter);
-
+		Factory factory = new Factory();
+		factory.drawTriangle(0, 50, 100, 0, 50, 0).execute(adapter2);
+		context.addDriver("Special Simulator", adapter2);
 		context.updateDriverInfo();
 	}
 
@@ -89,11 +103,11 @@ public class TestPlotSoftPatterns
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
-                setupDefaultDrawerVisibilityManagement(context);
-                
+                //setupDefaultDrawerVisibilityManagement(context);
             	setupDrivers(context);
             	setupPresetTests(context);
             	setupLogger(context);
+            
             }
 
         });
