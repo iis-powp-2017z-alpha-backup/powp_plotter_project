@@ -13,17 +13,19 @@ public class PlotterAdapter implements IPlotter
 { 
 	private int startX = 0, startY = 0;
 	private DrawPanelController drawPanelController;
+	private LineType lineType;
 	
-    public PlotterAdapter() {
-		super();
+	public PlotterAdapter() {
+	}
+    
+    public PlotterAdapter(DrawPanelController drawPanelController, LineType lineType) {
+		this.drawPanelController = drawPanelController;
+		this.lineType = lineType;
 	}
     
     public PlotterAdapter(DrawPanelController drawPanelController) {
-		super();
 		this.drawPanelController = drawPanelController;
 	}
-    
-    
     
 	@Override
     public void setPosition(int x, int y)
@@ -35,16 +37,25 @@ public class PlotterAdapter implements IPlotter
     @Override
     public void drawTo(int x, int y)
     {
-    	ILine line = LineFactory.getBasicLine();
+    	ILine line;
+    	if(!lineType.isFlag())
+    		line = LineFactory.getDottedLine();
+    	else
+    		line = lineType.getLine();
     	line.setStartCoordinates(this.startX, this.startY);
         line.setEndCoordinates(x, y);
         drawPanelController.drawLine(line);
         setPosition(x, y);
     }
-
+    
     @Override
     public String toString()
     {
-        return "@Q!$!@$!#@$(*#@&Q(%^*#@";
+        return "PlotterAdapter";
     }
 }
+
+//Wzorzec projektowy adapter, jest uzyteczny,
+//gdy mamy klasy ktorych interfejsy nie sa kompatybilne (IPlotter, DrawPanelController), 
+//dodatkowo jeĹ›li nie mamy kontroli nad kodem zrodlowym lub jego refaktoryzacja okazalaby sie zbyt kosztowna.
+//Dostarczamy interfejs ktory oczekuje klient (w TestPlotSoftPatterns), porzez opakowanie istniejacego interfejsu.
