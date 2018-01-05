@@ -1,0 +1,3 @@
+Kiedy warto (lub trzeba) korzystaæ z adaptera klasy (wariant z projektu sta¿ysty)?
+
+Gdy wykorzystanie istniej¹cej klasy jest niemo¿liwe ze wzglêdu na jej niekompatybilny interfejs.

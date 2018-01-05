@@ -1,6 +1,6 @@
 package edu.iis.powp.appext;
 
-import edu.iis.powp.adapter.PlotterAdapter;
+import edu.iis.powp.adapter.DrawerAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
@@ -44,9 +44,9 @@ public class ApplicationWithDrawer {
 	private static void setupDrawerPlugin(Context context) {    
 		SelectClearPanelOptionListener selectClearPanelOptionListener = new SelectClearPanelOptionListener();
 	
-		Application.addComponent(PlotterAdapter.class);
-		context.addComponentMenu(PlotterAdapter.class, "Draw Panel", 0);
-		context.addComponentMenuElement(PlotterAdapter.class, "Clear Panel", selectClearPanelOptionListener);
+		Application.addComponent(DrawerAdapter.class);
+		context.addComponentMenu(DrawerAdapter.class, "Draw Panel", 0);
+		context.addComponentMenuElement(DrawerAdapter.class, "Clear Panel", selectClearPanelOptionListener);
 		
 		getDrawPanelController().initialize(context.getFreePanel());
 	}
@@ -57,7 +57,7 @@ public class ApplicationWithDrawer {
      * @return drawPanelController.
      */
 	public static DrawPanelController getDrawPanelController() {
-		return Application.getComponent(PlotterAdapter.class);
+		return Application.getComponent(DrawerAdapter.class);
 	}
 
 }
