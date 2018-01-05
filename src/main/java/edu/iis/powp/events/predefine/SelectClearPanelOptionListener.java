@@ -7,14 +7,11 @@ import edu.iis.powp.adapter.PlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 
+public class SelectClearPanelOptionListener implements ActionListener {
 
-public class SelectClearPanelOptionListener implements ActionListener
-{
-
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        DrawPanelController controller = Application.getComponent(PlotterAdapter.class);
-        controller.clearPanel();
-    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		DrawPanelController controller = Application.getComponent(PlotterAdapter.class);
+		controller.clearPanel();
+	}
 }

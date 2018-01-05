@@ -48,7 +48,7 @@ public class ApplicationWithDrawer {
 		context.addComponentMenu(PlotterAdapter.class, "Draw Panel", 0);
 		context.addComponentMenuElement(PlotterAdapter.class, "Clear Panel", selectClearPanelOptionListener);
 		
-        getDrawPanelController().initialize(context.getFreePanel());
+		getDrawPanelController().initialize(context.getFreePanel());
 	}
 
 	 /**
