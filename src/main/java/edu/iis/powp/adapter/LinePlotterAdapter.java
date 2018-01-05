@@ -1,12 +1,9 @@
 package edu.iis.powp.adapter;
 
 import edu.iis.client.plottermagic.IPlotter;
-import edu.iis.powp.app.Application;
-import edu.iis.powp.app.Context;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
 import edu.kis.powp.drawer.shape.LineFactory;
-import edu.kis.powp.drawer.shape.line.AbstractLine;
 
 /**
  * Plotter adapter to drawer with several bugs.
