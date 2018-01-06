@@ -7,7 +7,7 @@ import edu.kis.powp.drawer.shape.LineFactory;
 
 public class LinePlotterAdapter implements IPlotter {
 
-	private int startX = 0, startY = 0;
+	private int X = 0, Y = 0;
 	private ILine line;
 	private DrawPanelController drawPanelController;
 
@@ -25,17 +25,16 @@ public class LinePlotterAdapter implements IPlotter {
 
 	@Override
 	public void setPosition(int x, int y) {
-		this.startX = x;
-		this.startY = y;
+		this.X = x;
+		this.Y = y;
 	}
 
 	@Override
 	public void drawTo(int x, int y) {
-		line.setStartCoordinates(this.startX, this.startY);
+		line.setStartCoordinates(this.X, this.Y);
 		line.setEndCoordinates(x, y);
 
 		drawPanelController.drawLine(line);
 		this.setPosition(x, y);
 	}
-
 }

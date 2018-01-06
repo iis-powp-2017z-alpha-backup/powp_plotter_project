@@ -57,8 +57,4 @@ public class ApplicationWithDrawer {
 	public static DrawPanelController getDrawPanelController() {
 		return Application.getComponent(DrawPanelController.class);
 	}
-
-	// public static DrawPanelController getLinePanelController() {
-	// return Application.getComponent(LinePlotterAdapter.class);
-	// }
 }

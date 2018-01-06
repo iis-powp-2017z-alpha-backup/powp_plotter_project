@@ -1,5 +1,10 @@
 package edu.iis.powp.gui;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.powp.adapter.Adapter;
@@ -11,35 +16,18 @@ import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 import edu.kis.powp.drawer.shape.LineFactory;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class TestPlotSoftPatterns {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	/**
-	 * Setup test concerning preset figures in context.
-	 *
-	 * @param context
-	 *            Application context.
-	 */
 	private static void setupPresetTests(Context context) {
 		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
 
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		context.addTest("Figure Joe 2", selectTestFigureOptionListener);
-		context.addTest("Figure Jane",  selectTestFigureOptionListener);
+		context.addTest("Figure Jane", selectTestFigureOptionListener);
 	}
 
-	/**
-	 * Setup driver manager, and set default IPlotter for application.
-	 *
-	 * @param context
-	 *            Application context.
-	 */
 	private static void setupDrivers(Context context) {
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
@@ -63,27 +51,6 @@ public class TestPlotSoftPatterns {
 		context.updateDriverInfo();
 	}
 
-	/**
-	 * Auxiliary routines to enable using Buggy Simulator.
-	 *
-	 * @param context
-	 *            Application context.
-	 */
-	// private static void setupDefaultDrawerVisibilityManagement(Context context) {
-	// DefaultDrawerFrame defaultDrawerWindow =
-	// DefaultDrawerFrame.getDefaultDrawerFrame();
-	// context.addComponentMenuElementWithCheckBox(DrawPanelController.class,
-	// "Default Drawer Visibility",
-	// new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
-	// defaultDrawerWindow.setVisible(true);
-	// }
-
-	/**
-	 * Setup menu for adjusting logging settings.
-	 *
-	 * @param context
-	 *            Application context.
-	 */
 	private static void setupLogger(Context context) {
 		Application.addComponent(Logger.class);
 		context.addComponentMenu(Logger.class, "Logger", 0);
@@ -96,9 +63,6 @@ public class TestPlotSoftPatterns {
 		context.addComponentMenuElement(Logger.class, "OFF logging", (ActionEvent e) -> LOGGER.setLevel(Level.OFF));
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 
@@ -106,14 +70,10 @@ public class TestPlotSoftPatterns {
 				ApplicationWithDrawer.configureApplication();
 				Context context = Application.getComponent(Context.class);
 
-				// setupDefaultDrawerVisibilityManagement(context);
-
 				setupDrivers(context);
 				setupPresetTests(context);
 				setupLogger(context);
 			}
-
 		});
 	}
-
 }
