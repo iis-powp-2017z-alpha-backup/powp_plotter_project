@@ -4,20 +4,25 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import edu.iis.client.plottermagic.AbstractPlotter;
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.powp.adapter.LinePlotterAdapter;
+import edu.iis.powp.adapter.PlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.events.predefine.SelectTestFigureOptionListener2;
+import edu.iis.powp.events.predefine.SelectTestFigureOptionListener3;
 
 
 public class TestPlotSoftPatterns
 {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	static LinePlotterAdapter linePlotter;
+	static IPlotter linePlotter;
     /**
 	 * Setup test concerning preset figures in context.
 	 * 
@@ -25,10 +30,12 @@ public class TestPlotSoftPatterns
 	 */
 	private static void setupPresetTests(Context context) {
 	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-	    SelectTestFigureOptionListener selectTestFigureOptionListener2 = new SelectTestFigureOptionListener();
+	    SelectTestFigureOptionListener2 selectTestFigureOptionListener2 = new SelectTestFigureOptionListener2();
+	    SelectTestFigureOptionListener3 selectTestFigureOptionListener3 = new SelectTestFigureOptionListener3();
 
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		context.addTest("Figure Joe 2", selectTestFigureOptionListener2);
+		context.addTest("Figure Jane", selectTestFigureOptionListener3);
 	}
 
 	/**
@@ -44,9 +51,9 @@ public class TestPlotSoftPatterns
 		IPlotter plotter = (IPlotter) ApplicationWithDrawer.getDrawPanelController();
 		context.addDriver("Buggy Simulator", plotter);
 
-		linePlotter = (LinePlotterAdapter) ApplicationWithDrawer.getLineController();
+		linePlotter = (IPlotter) ApplicationWithDrawer.getLineController();
 		context.addDriver("Line Simulator", linePlotter);
-		
+
 		context.updateDriverInfo();
 	}
 	
