@@ -9,6 +9,11 @@ import edu.kis.powp.drawer.shape.LineFactory;
 /**
  * Plotter adapter to drawer with several bugs. 
  */
+
+/**
+ * Adapter 3.2.5 odp:
+ * Gdy wykorzystanie istniejącej klasy jest niemożliwe, ze względu na niekompatybilny interfejs.
+ */
 public class DrawerAdapter extends DrawPanelController implements IPlotter
 {
 	private int startX = 0, startY = 0;
