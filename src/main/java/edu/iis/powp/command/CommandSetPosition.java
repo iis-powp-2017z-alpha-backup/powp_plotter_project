@@ -5,6 +5,13 @@ import edu.iis.client.plottermagic.IPlotter;
 public class CommandSetPosition implements PlotterCommand
 {
 	int x , y;
+	
+	public CommandSetPosition(int x, int y)
+	{
+		super();
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public void execute(IPlotter driver) 
