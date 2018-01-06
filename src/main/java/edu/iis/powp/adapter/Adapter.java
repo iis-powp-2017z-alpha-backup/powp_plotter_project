@@ -5,15 +5,20 @@ import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
 import edu.kis.powp.drawer.shape.LineFactory;
 
+/**
+  odp adapter 3.2.5
+  Adaptera klasy najelpiej wykorzystać, gdy skorzystanie z istnjejącej klasy jest niemożliwe z powodu spójnego inferfejsu. 
+ */
+
 
 /**
  * Plotter adapter to drawer with several bugs. 
  */
-public class MyAdapter extends DrawPanelController implements IPlotter
+public class Adapter extends DrawPanelController implements IPlotter
 { 
 	private int startX = 0, startY = 0;
 	
-    public MyAdapter() {
+    public Adapter() {
 		super();
 	}
     
@@ -32,6 +37,7 @@ public class MyAdapter extends DrawPanelController implements IPlotter
         line.setEndCoordinates(x, y);
 
 		drawLine(line);
+		this.setPosition(x, y);
     }
 
     @Override
