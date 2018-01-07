@@ -7,16 +7,15 @@ import edu.kis.powp.drawer.shape.LineFactory;
 
 /**
  * Drawer test.
- * 
+ *
  * @author Dominik
  */
-public class TestDrawer
-{
+public class TestDrawer {
+
     /**
      * Drawer test.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         DrawPanelController controller = new DrawPanelController();
         DefaultDrawerFrame.getDefaultDrawerFrame().setVisible(true);
         ILine line = LineFactory.getBasicLine();
