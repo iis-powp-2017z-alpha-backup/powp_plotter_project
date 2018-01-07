@@ -1,37 +1,40 @@
-
 package edu.iis.powp.adapter;
 
 import edu.iis.client.plottermagic.IPlotter;
+import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
 import edu.kis.powp.drawer.shape.LineFactory;
 
-public class LinePlotterAdapter extends MyAdapter implements IPlotter {
+public class LinePlotterAdapter implements IPlotter {
 
     private int startX = 0, startY = 0;
-    private ILine mline;
+    private ILine line;
+    private DrawPanelController drawPanelController;
 
-    public LinePlotterAdapter() {
+    public LinePlotterAdapter(DrawPanelController drawPanelController) {
         super();
-        mline = LineFactory.getBasicLine();
+        this.line = LineFactory.getDottedLine();
+        this.drawPanelController = drawPanelController;
     }
 
-    public LinePlotterAdapter(ILine line) {
+    public LinePlotterAdapter(DrawPanelController drawPanelController, ILine line) {
         super();
-        mline = line;
+        this.line = line;
+        this.drawPanelController = drawPanelController;
     }
 
     @Override
     public void setPosition(int x, int y) {
-        startX = x;
-        startY = y;
+        this.startX = x;
+        this.startY = y;
     }
 
     @Override
     public void drawTo(int x, int y) {
-        mline.setStartCoordinates(this.startX, this.startY);
-        mline.setEndCoordinates(x, y);
+        line.setStartCoordinates(this.startX, this.startY);
+        line.setEndCoordinates(x, y);
 
-        drawLine(mline);
+        drawPanelController.drawLine(line);
         this.setPosition(x, y);
     }
 
