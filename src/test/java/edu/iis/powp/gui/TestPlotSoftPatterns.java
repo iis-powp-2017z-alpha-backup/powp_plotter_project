@@ -2,6 +2,7 @@ package edu.iis.powp.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +13,8 @@ import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
+import edu.iis.powp.command.CommandsFactory;
+import edu.iis.powp.command.ComplexCommand;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 import edu.kis.powp.drawer.shape.LineFactory;
 
@@ -31,6 +34,23 @@ public class TestPlotSoftPatterns {
         context.addTest("Figure Joe 1", selectTestFigureOptionListener);
         context.addTest("Figure Joe 2", selectTestFigureOptionListener);
         context.addTest("Figure Jane", selectTestFigureOptionListener);
+        ComplexCommand rectangleCommand = CommandsFactory.getRectantgle();
+        context.addTest("Rectangle", new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rectangleCommand.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+            }
+        });
+
+        ComplexCommand triangleCommand = CommandsFactory.getTriangle();
+        context.addTest("Triangle", new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                triangleCommand.execute(Application.getComponent(DriverManager.class).getCurrentPlotter());
+            }
+        });
     }
 
     /**
