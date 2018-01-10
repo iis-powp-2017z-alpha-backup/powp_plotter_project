@@ -7,10 +7,14 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
+import edu.iis.powp.command.CommandDrawLineToPosition;
+import edu.iis.powp.command.CommandSetPosition;
+import edu.iis.powp.command.PlotterCommand;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 
 
@@ -29,6 +33,8 @@ public class TestPlotSoftPatterns
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		context.addTest("Figure Joe 2" , selectTestFigureOptionListener);
 		context.addTest("Figure Jane", selectTestFigureOptionListener);
+		context.addTest("Command pattern example", selectTestFigureOptionListener);
+		
 	}
 
 	/**
@@ -39,9 +45,10 @@ public class TestPlotSoftPatterns
 	private static void setupDrivers(Context context) {
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
-		
+
 		IPlotter plotterSimulator = (IPlotter) ApplicationWithDrawer.getDrawPanelController();
-		context.addDriver("Buggy Simulator", plotterSimulator);
+		context.addDriver("Line ploter adapter", plotterSimulator);
+		
 		Application.getComponent(DriverManager.class).setCurrentPlotter(plotterSimulator);
 		
 		context.updateDriverInfo();
