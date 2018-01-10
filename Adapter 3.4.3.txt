@@ -1,0 +1,3 @@
+*Jak powinien wygl¹daæ diagram UML takiego adaptera? 
+Czy jest on bli¿szy wariantowi adaptera klasy czy adaptera obiektu? - Adapter obiektu
+Z jakim wzorcem projektowym naprawdê mamy doczynienia? - Dekorator?
