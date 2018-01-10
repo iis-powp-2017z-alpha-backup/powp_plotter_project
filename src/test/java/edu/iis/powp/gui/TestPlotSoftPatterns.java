@@ -3,6 +3,7 @@ package edu.iis.powp.gui;
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.client.plottermagic.preset.FiguresJoe;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.adapter.MyAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
@@ -44,9 +45,14 @@ public class TestPlotSoftPatterns {
         context.addDriver("Client Plotter", clientPlotter);
         Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 
+
         IPlotter plotter = new MyAdapter();
         FiguresJoe.figureScript1(plotter);
         context.addDriver("Buggy Simulator", plotter);
+        context.addDriver("MyAdapter", plotter);
+
+        IPlotter specialLine = new LinePlotterAdapter();
+        context.addDriver("SpecialLine", specialLine);
 
         context.updateDriverInfo();
     }
