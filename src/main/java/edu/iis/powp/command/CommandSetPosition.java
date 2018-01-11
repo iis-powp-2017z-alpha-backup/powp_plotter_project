@@ -6,6 +6,12 @@ public class CommandSetPosition implements PlotterCommand {
 
 	private int x, y;
 	
+	public CommandSetPosition(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}

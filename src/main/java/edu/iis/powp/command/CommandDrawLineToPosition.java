@@ -6,6 +6,12 @@ public class CommandDrawLineToPosition implements PlotterCommand {
 
 	private int x, y;
 	
+	public CommandDrawLineToPosition(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}

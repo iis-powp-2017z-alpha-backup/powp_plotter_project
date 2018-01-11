@@ -15,7 +15,6 @@ import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
-import edu.iis.powp.events.predefine.TestFigureListener;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.LineFactory;
@@ -30,12 +29,11 @@ public class TestPlotSoftPatterns
 	 * 
 	 * @param context Application context.
 	 */
-	private static void setupPresetTests(Context context) {
-	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-	    TestFigureListener testFigureListener = new TestFigureListener();
-		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
-		context.addTest("Figure Joe 2", testFigureListener);
+	private static void setupPresetTests(Context context) {	
+		context.addTest("Figure Joe 1", new SelectTestFigureOptionListener(SelectTestFigureOptionListener.FIGURE_SCRIPT_1));
+		context.addTest("Figure Joe 2", new SelectTestFigureOptionListener(SelectTestFigureOptionListener.FIGURE_SCRIPT_2));
+		context.addTest("Rectangle", new SelectTestFigureOptionListener(SelectTestFigureOptionListener.RECTANGLE));
+		context.addTest("Triangle", new SelectTestFigureOptionListener(SelectTestFigureOptionListener.TRIANGLE));
 	}
 
 	/**
@@ -100,7 +98,7 @@ public class TestPlotSoftPatterns
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
-                setupDefaultDrawerVisibilityManagement(context);
+                // setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
             	setupPresetTests(context);
