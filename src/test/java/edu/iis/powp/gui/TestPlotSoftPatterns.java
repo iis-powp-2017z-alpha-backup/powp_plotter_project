@@ -7,15 +7,18 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
-import edu.iis.powp.adapter.MyAdapter;
+import edu.iis.powp.adapter.LinePlotterAdapter;
+import edu.iis.powp.adapter.PlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
+import edu.iis.powp.command.TestCommandComplexFactory;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
+import edu.kis.powp.drawer.shape.LineFactory;
 
 
 public class TestPlotSoftPatterns
@@ -28,9 +31,19 @@ public class TestPlotSoftPatterns
 	 * @param context Application context.
 	 */
 	private static void setupPresetTests(Context context) {
-	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
+
+	    SelectTestFigureOptionListener selectFirstTestFigureOptionListener = new SelectTestFigureOptionListener("Figure Joe 1");
+            SelectTestFigureOptionListener selectSecondTestFigureOptionListener1 = new SelectTestFigureOptionListener("Figure Joe 2");
+            
+            SelectTestFigureOptionListener selectSecondTestFigureOptionListener2 = new SelectTestFigureOptionListener("Test comm 1");
+            SelectTestFigureOptionListener selectSecondTestFigureOptionListener3 = new SelectTestFigureOptionListener("Test comm 2");
+            SelectTestFigureOptionListener selectSecondTestFigureOptionListener4 = new SelectTestFigureOptionListener("Test comm 3");
 		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+            context.addTest("Figure Joe 1", selectFirstTestFigureOptionListener);
+            context.addTest("Figure Joe 2", selectSecondTestFigureOptionListener1);
+            context.addTest("Quadrangle", selectSecondTestFigureOptionListener2);
+            context.addTest("Square", selectSecondTestFigureOptionListener3);
+            context.addTest("Triangle", selectSecondTestFigureOptionListener4);
 	}
 
 	/**
@@ -43,8 +56,10 @@ public class TestPlotSoftPatterns
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 		
-		IPlotter plotter = new MyAdapter();
-		context.addDriver("Buggy Simulator", plotter);
+		IPlotter plotter = new PlotterAdapter(ApplicationWithDrawer.getDrawPanelController());
+                IPlotter LinePlotter = new LinePlotterAdapter(ApplicationWithDrawer.getDrawPanelController(), LineFactory.getSpecialLine());
+		context.addDriver("Plotter Adapter Simulator", plotter);
+                context.addDriver("LinePlotterAdapter", LinePlotter);
 
 		context.updateDriverInfo();
 	}
@@ -88,8 +103,6 @@ public class TestPlotSoftPatterns
             {
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
-                
-                setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
             	setupPresetTests(context);
