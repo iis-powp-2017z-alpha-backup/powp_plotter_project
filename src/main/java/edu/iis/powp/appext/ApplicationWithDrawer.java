@@ -1,9 +1,11 @@
 package edu.iis.powp.appext;
 
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.events.predefine.SelectClearPanelOptionListener;
+import edu.iis.powp.events.predefine.SelectLineTypeForDrawerListener;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 
 /**
@@ -41,13 +43,17 @@ public class ApplicationWithDrawer {
 	 * @param context Application context.
 	 */
 	private static void setupDrawerPlugin(Context context) {    
-		SelectClearPanelOptionListener selectClearPanelOptionListener = new SelectClearPanelOptionListener();
-	
-		Application.addComponent(DrawPanelController.class);
-		context.addComponentMenu(DrawPanelController.class, "Draw Panel", 0);
-		context.addComponentMenuElement(DrawPanelController.class, "Clear Panel", selectClearPanelOptionListener);
 		
-        getDrawPanelController().initialize(context.getFreePanel());
+		SelectClearPanelOptionListener selectClearPanelOptionListener = new SelectClearPanelOptionListener();
+		Application.addComponent(LinePlotterAdapter.class);
+		context.addComponentMenu(LinePlotterAdapter.class, "Draw Panel", 0);
+		context.addComponentMenuElement(LinePlotterAdapter.class, "Clear Panel", selectClearPanelOptionListener);
+		getDrawPanelController().initialize(context.getFreePanel());
+		
+		SelectLineTypeForDrawerListener selectLineTypeListener = new SelectLineTypeForDrawerListener();
+
+		context.addComponentMenuElement(LinePlotterAdapter.class, "Set basic line", selectLineTypeListener);
+		context.addComponentMenuElement(LinePlotterAdapter.class, "Set special line", selectLineTypeListener);
 	}
 
 	 /**
@@ -56,7 +62,6 @@ public class ApplicationWithDrawer {
      * @return drawPanelController.
      */
 	public static DrawPanelController getDrawPanelController() {
-		return Application.getComponent(DrawPanelController.class);
+		return Application.getComponent(LinePlotterAdapter.class);
 	}
-
 }
