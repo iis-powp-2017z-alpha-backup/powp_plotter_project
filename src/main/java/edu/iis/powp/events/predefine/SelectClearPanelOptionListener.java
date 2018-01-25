@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 public class SelectClearPanelOptionListener implements ActionListener {
 
+
+    //dgfbg//
     @Override
     public void actionPerformed(ActionEvent e) {
         DrawPanelController controller = Application.getComponent(DrawPanelController.class);
