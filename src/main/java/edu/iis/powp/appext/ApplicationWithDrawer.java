@@ -11,6 +11,7 @@ public class ApplicationWithDrawer {
 
 	private static boolean isAppCreated = false;
 
+
 	public synchronized static void configureApplication() {
 		if (!isAppCreated) {
 			isAppCreated = true;
@@ -38,9 +39,7 @@ public class ApplicationWithDrawer {
 		getDrawPanelController().initialize(context.getFreePanel());
 	}
 
-
 	public static DrawPanelController getDrawPanelController() {
 		return Application.getComponent(DrawPanelController.class);
 	}
-
 }
