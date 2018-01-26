@@ -21,7 +21,7 @@ public class SelectTestFigureOptionListener implements ActionListener {
             case "Figure Joe 2":
                 FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
                 break;
-            case "Figure Jane 3":
+            case "Figure Jane":
                 FiguresJane.figureScript(
                         new JanePlotter(Application.getComponent(DriverManager.class).getCurrentPlotter()));
         }
