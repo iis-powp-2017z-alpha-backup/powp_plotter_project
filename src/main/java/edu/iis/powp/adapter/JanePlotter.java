@@ -8,7 +8,7 @@ public class JanePlotter extends AbstractPlotter {
     private IPlotter iPlotter;
 
     public JanePlotter(IPlotter iPlotter) {
-        super(0, 0);
+        super(0,0);
         this.iPlotter = iPlotter;
     }
 

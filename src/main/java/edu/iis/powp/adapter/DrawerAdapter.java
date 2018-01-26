@@ -36,3 +36,8 @@ public class DrawerAdapter implements IPlotter {
         return "DriverAdapter";
     }
 }
+
+/**
+ * Adapter 3.2.5 odp:
+ * Gdy wykorzystanie istniejącej klasy jest niemożliwe, ze względu na niekompatybilny interfejs.
+ */
