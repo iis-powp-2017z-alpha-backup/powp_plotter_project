@@ -5,6 +5,13 @@ package edu.iis.powp.command;
  public class CommandSetPosition implements PlotterCommand
  {
  	int x , y;
+ 	
+ 	public CommandSetPosition(int x, int y)
+	 	{
+			super();
+	 		this.x = x;
+	 		this.y = y;
+	 	}
  
  	@Override
  	public void execute(IPlotter driver) 
