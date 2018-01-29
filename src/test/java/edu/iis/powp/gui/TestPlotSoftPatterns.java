@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.iis.powp.adapter.AdapterForPlotter;
@@ -14,6 +14,8 @@ import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.events.predefine.TestFigure02;
+import edu.kis.powp.drawer.shape.LineFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 
@@ -45,8 +47,9 @@ public class TestPlotSoftPatterns
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 		
 		IPlotter plotter = new AdapterForPlotter(ApplicationWithDrawer.getDrawPanelController());
+		IPlotter linePlotter= new LinePlotterAdapter(ApplicationWithDrawer.getDrawPanelController(), LineFactory.getSpecialLine());
 		context.addDriver("Buggy Simulator", plotter);
-
+		context.addDriver("Line Plotter Adapter", linePlotter);
 		context.updateDriverInfo();
 	}
 
