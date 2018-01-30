@@ -11,7 +11,7 @@ import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
-
+import edu.iis.powp.events.predefine.Figure2Test;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
 
 public class TestPlotSoftPatterns {
@@ -25,8 +25,10 @@ public class TestPlotSoftPatterns {
 	 */
 	private static void setupPresetTests(Context context) {
 		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
+
+		Figure2Test figure2 = new Figure2Test();
+		context.addTest("Figure Joe 2", figure2);
 	}
 
 	/**
