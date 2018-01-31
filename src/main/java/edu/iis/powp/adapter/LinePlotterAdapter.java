@@ -3,22 +3,16 @@ package edu.iis.powp.adapter;
 import edu.iis.client.plottermagic.IPlotter;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
-import edu.kis.powp.drawer.shape.LineFactory;
-import edu.kis.powp.drawer.shape.line.AbstractLine;
 
-public class LinePlotterAdapter extends DrawPanelController implements IPlotter {
+public class LinePlotterAdapter implements IPlotter {
 
 	private int startX = 0, startY = 0;
 	private ILine iLine;
+	private DrawPanelController drawPanelController;
 
-	public LinePlotterAdapter() {
-		super();
-		iLine = LineFactory.getBasicLine();
-	}
-	
-	public LinePlotterAdapter(AbstractLine line) {
-		super();
-		iLine = line;
+	public LinePlotterAdapter(DrawPanelController drawPanelController, ILine line) {
+		this.drawPanelController = drawPanelController;
+		this.iLine = line;
 	}
 
 	@Override
@@ -32,7 +26,7 @@ public class LinePlotterAdapter extends DrawPanelController implements IPlotter 
 		iLine.setStartCoordinates(this.startX, this.startY);
 		iLine.setEndCoordinates(x, y);
 		this.setPosition(x, y);
-		drawLine(iLine);
+		this.drawPanelController.drawLine(iLine);
 
 	}
 

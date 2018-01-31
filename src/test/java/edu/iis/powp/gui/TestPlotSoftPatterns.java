@@ -7,12 +7,14 @@ import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
+import edu.iis.powp.adapter.LinePlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.Figure2Test;
 import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.kis.powp.drawer.shape.LineFactory;
 
 public class TestPlotSoftPatterns {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -44,6 +46,15 @@ public class TestPlotSoftPatterns {
 
 		IPlotter plotter = (IPlotter) ApplicationWithDrawer.getDrawPanelController();
 		context.addDriver("Buggy Simulator", plotter);
+
+		IPlotter basicLinePlotter = new LinePlotterAdapter(ApplicationWithDrawer.getDrawPanelController(), LineFactory.getBasicLine());
+		context.addDriver("Basic line", basicLinePlotter);
+
+		IPlotter dottedLinePlotter = new LinePlotterAdapter(ApplicationWithDrawer.getDrawPanelController(), LineFactory.getDottedLine());
+		context.addDriver("Dotted line", dottedLinePlotter);
+
+		IPlotter specialLinePlotter = new LinePlotterAdapter(ApplicationWithDrawer.getDrawPanelController(),LineFactory.getSpecialLine());
+		context.addDriver("Special line", specialLinePlotter);
 
 		context.updateDriverInfo();
 	}
