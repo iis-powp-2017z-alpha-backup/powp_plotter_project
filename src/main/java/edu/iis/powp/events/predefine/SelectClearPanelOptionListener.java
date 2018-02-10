@@ -1,6 +1,7 @@
 package edu.iis.powp.events.predefine;
 
 import java.awt.event.ActionEvent;
+import edu.iis.powp.appext.ApplicationWithDrawer;
 import java.awt.event.ActionListener;
 
 import edu.iis.powp.app.Application;
@@ -13,7 +14,7 @@ public class SelectClearPanelOptionListener implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        DrawPanelController controller = Application.getComponent(DrawPanelController.class);
+        DrawPanelController controller = ApplicationWithDrawer.getDrawPanelController();
         controller.clearPanel();
     }
 }
