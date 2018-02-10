@@ -5,25 +5,27 @@ import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
 import edu.kis.powp.drawer.shape.LineFactory;
 
-import javax.sound.sampled.Line;
+public class LinePlotterAdapter implements IPlotter {
 
-public class LinePlotterAdapter extends DrawerAdapter implements IPlotter {
     private int startX = 0, startY = 0;
     private ILine line;
+    private DrawPanelController drawPanelController;
+    
 
-    public LinePlotterAdapter() {
+    public LinePlotterAdapter(DrawPanelController drawPanelController) {
         super();
-        this.line = LineFactory.getBasicLine();
+        this.line = LineFactory.getDottedLine();
+                this.drawPanelController = drawPanelController;
     }
 
-    public LinePlotterAdapter(ILine line) {
+    public LinePlotterAdapter(DrawPanelController drawPanelController, ILine line) {
         super();
         this.line = line;
+        this.drawPanelController = drawPanelController;
     }
 
     @Override
-    public void setPosition(int x, int y)
-    {
+    public void setPosition(int x, int y) {
         this.startX = x;
         this.startY = y;
     }
@@ -34,7 +36,7 @@ public class LinePlotterAdapter extends DrawerAdapter implements IPlotter {
         line.setStartCoordinates(this.startX, this.startY);
         line.setEndCoordinates(x, y);
 
-        drawLine(line);
+        drawPanelController.drawLine(line);
         this.setPosition(x, y);
     }
 

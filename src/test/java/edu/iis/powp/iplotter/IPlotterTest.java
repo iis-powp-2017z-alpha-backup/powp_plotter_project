@@ -9,15 +9,13 @@ import edu.iis.client.plottermagic.preset.FiguresJoe;
  * 
  * @author Dominik
  */
-public class IPlotterTest
-{
+public class IPlotterTest {
     private static IPlotter plotter = new TestPlotter();
     
     /**
      * Plotter test.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         FiguresJoe.figureScript1(plotter);
     }
     
@@ -25,15 +23,15 @@ public class IPlotterTest
     {
 
         @Override
-        public void drawTo(int x, int y)
-        {
+        public void drawTo(int x, int y) {
             System.out.println("Plotter drawTo action..."); 
         }
 
         @Override
-        public void setPosition(int x, int y)
-        {
+        public void setPosition(int x, int y) {
             System.out.println("Plotter setPosition action..."); 
         }
-    };
+    }
+    
+    ;
 }
